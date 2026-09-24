@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     
-    "outDir": "./dist",  //Diretori de saída dos arquivos já para visualização
+    "outDir": "./dist",  //Diretorio de saída dos arquivos já para visualização
     "rootDir": "./src",  
     
     "module": "NodeNext",
