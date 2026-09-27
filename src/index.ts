@@ -1,5 +1,9 @@
 //Importar a Biblioteca Express
 import express from 'express';
+//Importar variáveis de ambiente
+import dotenv from 'dotenv';
+//carregar as variáveis de ambiente do arquivo .env
+dotenv.config()
 
 //Criar a aplicação Express
 const app = express ();
@@ -11,6 +15,6 @@ import login from"./controllers/login.js";
 app.use('/', login)
 
 //Iniciar o servidor na porta 3000
-app.listen(3000, ()=>{
-    console.log("Servidor iniciado na porta 3000: http://localhost:3000")
+app.listen(process.env.PORT, () => {
+            console.log(`Servidor iniciado na porta ${process.env.PORT}: http://localhost:${process.env.PORT}`);
 });
