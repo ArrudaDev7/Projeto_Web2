@@ -1,7 +1,16 @@
-// Carrega o .env logo no topo deste arquivo também
 import "dotenv/config";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+//Importar variáveis de ambiente
+import dotenv from 'dotenv';
+//carregar as variáveis de ambiente do arquivo .env
+dotenv.config()
+
+// Definindo __dirname manualmente para ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const dialect = process.env.DB_DIALECT ?? "mysql";
 
@@ -16,5 +25,5 @@ export const AppDataSource = new DataSource({
     logging: true,
     entities: [],
     subscribers: [],
-    migrations: [],
+    migrations: [join(__dirname, "/migration/*.js")],
 });
