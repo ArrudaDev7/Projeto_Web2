@@ -1,3 +1,4 @@
+import "reflect-metadata";
 //Importar a Biblioteca Express
 import express from 'express';
 //Importar variáveis de ambiente
@@ -9,10 +10,12 @@ dotenv.config()
 const app = express ();
 
 //Incluir os controllers
-import login from"./controllers/login.js";
+import AuthController from"./controllers/AuthController.js";
+import SituationsController from"./controllers/SituationsController.js";
 
 //criar as rotas
-app.use('/', login)
+app.use('/', AuthController)
+app.use('/', SituationsController)
 
 //Iniciar o servidor na porta 3000
 app.listen(process.env.PORT, () => {

@@ -1,12 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { User } from "./Users.js"
+import { Users } from "./Users.js"
 
 @Entity("situations")
 export class Situations {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column()
+    @Column({ type : "varchar", unique: true })
     name!: string
 
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
@@ -15,6 +15,6 @@ export class Situations {
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
     updatedAt!: string;
 
-     @OneToMany(() => User, (user) => user.situation)
-    users!: User[]
+     @OneToMany(() => Users, (user:Users) => user.situation)
+    users!: Users[]
 }

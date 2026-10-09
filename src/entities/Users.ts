@@ -2,14 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from "t
 import { Situations } from "./Situations.js";
 
 @Entity("users")
-export class User {
+export class Users {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column()
+    @Column({ type : "varchar", unique: true})
     name!: string
 
-    @Column({ unique: true })
+    @Column({ type: "varchar", unique: true })
     email!: string
 
     @ManyToOne(() => Situations, (situation) => situation.users)
