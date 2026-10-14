@@ -9,6 +9,9 @@ dotenv.config()
 //Criar a aplicação Express
 const app = express ();
 
+//Criar um middleware para interpretar o corpo das requisições como JSON
+app.use(express.json());
+
 //Incluir os controllers
 import AuthController from"./controllers/AuthController.js";
 import SituationsController from"./controllers/SituationsController.js";

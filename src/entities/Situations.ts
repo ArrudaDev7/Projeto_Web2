@@ -7,7 +7,7 @@ export class Situations {
     id!: number
 
     @Column({ type : "varchar", unique: true })
-    name!: string
+    nameSituation!: string
 
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     createdAt!: string;
