@@ -5,6 +5,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { Situations } from "./entities/Situations.js";
 import { Users } from "./entities/Users.js";
+import { Products } from "./entities/Products.js";
+import { ProductCategories } from "./entities/ProductCategories.js";
+import { ProductSituations } from "./entities/ProductSituations.js";
 //Importar variáveis de ambiente
 import dotenv from 'dotenv';
 //carregar as variáveis de ambiente do arquivo .env
@@ -25,7 +28,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE!,
     synchronize: false,
     logging: true,
-    entities: [Situations, Users],
+    entities: [Situations, Users, Products, ProductCategories, ProductSituations],
     subscribers: [],
     migrations: [join(__dirname, "/migration/*.js")],
 });

@@ -2,6 +2,7 @@
 import express, { type Request, type Response } from 'express';
 import { AppDataSource } from '../data-source.js';
 import { Situations } from '../entities/Situations.js';
+import { PaginationService } from '../services/PaginationServices.js';
 
 //Criar a aplicação Express
 const router = express.Router ();
@@ -13,50 +14,15 @@ router.get("/situations", async (req:Request, res:Response)=> {
        const SituationRepository = AppDataSource.getRepository(Situations);
        
        // Receber o número da página e definir página 1 como padrão
-       const page = parseInt(req.query.page as string) || 1;
+       const page = Number(req.query.page) || 1;
 
        // Definir o limite de registros por página
-         const limit = 10;
+         const limit = Number(req.query.limit) || 10;
 
-       // Contar o total de registros no banco de dados
-       const totalSituations = await SituationRepository.count();
-
-       // Verificar se existem registros no banco de dados
-       if (totalSituations === 0) {
-           res.status(400).json({
-               mensagem: "Nenhuma situação encontrada!",
-           });
-           return;
-       }
-
-       // Calcular a última página
-       const lastPage = Math.ceil(totalSituations / limit);
-
-       // Verificar se a página solicitada é válida
-       if (page > lastPage) {
-           res.status(401).json({
-               mensagem: `Página solicitada é inválida! Última página: ${lastPage}`,
-           });
-           return;
-       }
-
-       // Calcular o offset (a partir de qual registro começar a buscar)
-         const offset = (page - 1) * limit;
-
-       // Recuperar os registros do banco de dados com paginação
-       const situations = await SituationRepository.find({
-           skip: offset,
-           take: limit,
-           order: {id: "DESC"},
-       });
+         const result = await PaginationService.paginate(SituationRepository, page, limit, { id: "DESC" });
 
        // Retornar a resposta com os registros encontrados
-       res.status(200).json({
-        currentPage: page,
-        lastPage,
-        totalSituations,
-        situations,
-       });
+       res.status(200).json(result);
        return;
     }catch (error) {
         res.status(500).json({
