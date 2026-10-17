@@ -15,10 +15,18 @@ app.use(express.json());
 //Incluir os controllers
 import AuthController from"./controllers/AuthController.js";
 import SituationsController from"./controllers/SituationsController.js";
+import UsersController from "./controllers/UsersController.js";
+import ProductCategoriesController from "./controllers/ProductsCategoriesController.js";
+import ProductSituationsController from "./controllers/ProductsSituationsController.js";
+import ProductsController from "./controllers/ProductsController.js";
 
 //criar as rotas
 app.use('/', AuthController)
 app.use('/', SituationsController)
+app.use('/', UsersController);
+app.use('/', ProductCategoriesController);
+app.use('/', ProductSituationsController);
+app.use('/', ProductsController);
 
 //Iniciar o servidor na porta 3000
 app.listen(process.env.PORT, () => {
